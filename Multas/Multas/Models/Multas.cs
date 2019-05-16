@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -9,12 +10,16 @@ namespace Multas.Models {
 
       public int ID { get; set; }
 
+      [Display(Name = "Infração")]
       public string Infracao { get; set; }
 
+      [Display(Name ="Local da multa")]
       public string LocalDaMulta { get; set; }
 
+      [Display(Name = "Valor da multa")]
       public decimal ValorMulta { get; set; }
 
+      [Display(Name = "Data da multa")]
       public DateTime DataDaMulta { get; set; }
 
       // CRIAR CHAVES FORASTEIRAS
@@ -22,17 +27,17 @@ namespace Multas.Models {
       // FK para o Agente
       [ForeignKey("Agente")]
       public int AgenteFK { get; set; }
-      public Agentes Agente { get; set; }
+      public virtual Agentes Agente { get; set; }
 
       // FK para o Condutor
       [ForeignKey("Condutor")]
       public int CondutorFK{ get; set; }
-      public Condutores Condutor { get; set; }
+      public virtual Condutores Condutor { get; set; }
 
       // FK para a Viatura
       [ForeignKey ("Viatura")]
       public int ViaturaFK { get; set; }
-      public Viaturas Viatura { get; set; }
+      public virtual Viaturas Viatura { get; set; }
 
 
    }

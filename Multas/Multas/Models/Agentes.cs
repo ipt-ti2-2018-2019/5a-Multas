@@ -7,6 +7,9 @@ using System.Web;
 namespace Multas.Models {
    public class Agentes {
 
+      public Agentes() {
+         ListaDasMultas = new HashSet<Multas>();
+      }
 
       public int ID { get; set; }
 
@@ -16,13 +19,13 @@ namespace Multas.Models {
       public string Nome { get; set; }
 
       [Required(ErrorMessage = "Não se esqueça de indicar a Esquadra onde o agente trabalha, por favor.")]
-   //   [RegularExpression("(Tomar|Ourém|Torres Novas|Lisboa|Leiria)")]
+      //   [RegularExpression("(Tomar|Ourém|Torres Novas|Lisboa|Leiria)")]
       public string Esquadra { get; set; }
 
       public string Fotografia { get; set; }
 
       // identifica as multas passadas pelo Agente
-      public ICollection<Multas> ListaDasMultas { get; set; }
+      public virtual ICollection<Multas> ListaDasMultas { get; set; }
 
    }
 }

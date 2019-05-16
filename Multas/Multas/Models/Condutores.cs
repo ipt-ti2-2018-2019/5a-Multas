@@ -6,6 +6,10 @@ using System.Web;
 namespace Multas.Models {
    public class Condutores {
 
+      public Condutores() {
+         ListaDasMultas = new HashSet<Multas>();
+      }
+
       public int ID { get; set; }
 
       public string Nome { get; set; }
@@ -24,7 +28,7 @@ namespace Multas.Models {
 
 
       // lista das multas associadas ao Condutor
-      public ICollection<Multas> ListaDasMultas { get; set; }
+      public virtual ICollection<Multas> ListaDasMultas { get; set; }
 
 
    }
