@@ -1,0 +1,51 @@
+﻿@model Multas.Models.Agentes
+
+@{
+   ViewBag.Title = "Agentes";
+}
+
+<h2>Apagar Agente</h2>
+
+<h3>Quer remover este Agente?</h3>
+<div>
+   @* este 'helper' mostra as mensagens de erro que existem associadas ao Modelo *@
+   @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+   <hr />
+   <dl class="dl-horizontal">
+      <dt>
+         @Html.DisplayNameFor(model => model.Nome)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.Nome)
+      </dd>
+
+      <dt>
+         @Html.DisplayNameFor(model => model.Esquadra)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.Esquadra)
+      </dd>
+
+      <dt>
+         @Html.DisplayNameFor(model => model.Fotografia)
+      </dt>
+
+      <dd>
+         <img src="~/imagens/@Model.Fotografia" height="150" />
+         @*@Html.DisplayFor(model => model.Fotografia)*@
+      </dd>
+
+   </dl>
+
+   @using(Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+         <input type="submit" value="Remover" class="btn btn-default" /> |
+         @Html.ActionLink("Regressar à listagem", "Index")
+      </div>
+   }
+</div>
