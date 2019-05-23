@@ -13,7 +13,7 @@ namespace Multas.Controllers {
    public class AgentesController : Controller {
 
       // cria VAR que representa a BD
-      private MultasDB db = new MultasDB();
+      private ApplicationDbContext db = new ApplicationDbContext();
 
       // GET: Agentes
       public ActionResult Index() {
