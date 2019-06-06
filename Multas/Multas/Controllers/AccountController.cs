@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System;
 
 namespace Multas.Controllers {
    [Authorize] // todos os utilizadores devem estar AUTENTICADOS
@@ -127,21 +128,37 @@ namespace Multas.Controllers {
       [AllowAnonymous]
       [ValidateAntiForgeryToken]
       public async Task<ActionResult> Register(RegisterViewModel model) {
+
          if(ModelState.IsValid) {
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
             var result = await UserManager.CreateAsync(user, model.Password);
+
             if(result.Succeeded) {
-               var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-               var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-               await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-               ViewBag.Link = callbackUrl;
-               return View("DisplayEmail");
+               // consegui criar um utilizador.
+               // vou tentar escrever os dados do Agente na BD
+               bool resultadoCriacaoAgente = criaAgenteNaBD(model.Agente, user.UserName);
+
+               if(resultadoCriacaoAgente) {
+                  var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                  var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                  await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                  ViewBag.Link = callbackUrl;
+                  return View("DisplayEmail");
+               }
+               else {
+                  // se houve insucesso?
+                  // o que fazer??????????????
+               }
             }
             AddErrors(result);
          }
 
          // If we got this far, something failed, redisplay form
          return View(model);
+      }
+
+      private bool criaAgenteNaBD(Agentes agente, string userName) {
+         throw new NotImplementedException();
       }
 
       //
